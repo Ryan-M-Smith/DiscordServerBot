@@ -7,9 +7,6 @@
 
 import os, discord
 
-from discord.ext import commands
-from discord_slash import SlashCommand, SlashContext
-
 from typing import NoReturn
 from dotenv import load_dotenv
 
@@ -36,7 +33,7 @@ async def on_member_join(member: discord.Member) -> NoReturn:
 	await member.create_dm()
 	await channel.send(f"What's poppin\', {member.name}? Welcome to Infinitely Sus!")
 
-@client.event
-async def 
+#@client.event
+#async def 
 
 client.run(TOKEN)
