@@ -36,4 +36,5 @@ async def on_member_join(member: discord.Member) -> NoReturn:
 #@client.event
 #async def 
 
-client.run(TOKEN)
+if __name__ == "__main__":
+	client.run(TOKEN)
