@@ -10,7 +10,7 @@ import os, discord
 from discord.ext import commands
 from discord_slash import SlashCommand, SlashContext, SlashCommandOptionType
 from dotenv import load_dotenv
-from datetime import datetime
+from datetime import datetime, date
 
 from params import *
 
@@ -46,11 +46,13 @@ async def info(ctx: SlashCommand):
 		Get info about the server.
 		Usage: `/info`
 	"""
-	time, date = datetime.now(), datetime.date()
+	time, curr_date = datetime.now(), date.today()
+	slice = 1 if int(time.strftime("%I")) >= 10 else 0
+	print(type(slice))
 	
 	await ctx.send(content=
-		f"Welcome to the {SERVER} server!" + \
-		f"It is currently {date.month}/{date.day}/{date.year} at {time.strftime('%I:%M %p')[1:]}"
+		f"Welcome to the {SERVER} server!\n" + \
+		f"It is currently {curr_date.strftime('%B %d, %Y')} at {time.strftime('%I:%M %p')[slice:]}"
 	)
 
 client.run(TOKEN)
