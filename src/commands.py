@@ -48,9 +48,9 @@ async def info(ctx: SlashCommand):
 	"""
 	time, date = datetime.now(), datetime.date()
 	
-	await ctx.send(content=(
+	await ctx.send(content=
 		f"Welcome to the {SERVER} server!" + \
-		f"It is currently {date.month}/{date.day}/{date.year} at {time.strftime("%I:%M %p")[1:]}"
-	))
+		f"It is currently {date.month}/{date.day}/{date.year} at {time.strftime('%I:%M %p')[1:]}"
+	)
 
 client.run(TOKEN)
