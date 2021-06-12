@@ -11,6 +11,7 @@ from random import choice, randint, randrange
 
 from discord import Member
 from discord.ext import commands
+from discord.utils import get
 from discord_slash import SlashCommand, SlashContext, SlashCommandOptionType
 from dotenv import load_dotenv
 from datetime import datetime, date
@@ -154,5 +155,26 @@ async def rage(ctx: SlashCommand) -> NoReturn:
 
 	for _ in range(randint(10, 15)):
 		await ctx.send(secrets.token_hex(nbytes=16)) # Simulate keymashing
+
+@client.command(
+	name="calm", description="Be calm in the server.",
+	guild_ids=[850104152679252006], options=None,
+	pass_context=True
+)
+async def calm(ctx: SlashCommand) -> NoReturn:
+	"""
+		Be calm on the server
+		Usage: `/calm`
+	"""
+
+	member = ctx.message.author # The command sender
+
+	# NOTE: The only works if you have a role with this exact name
+	if get(ctx.guild.roles, name="[ZEN]"):
+		# Give that user the zen role
+		role = discord.utils.get(ctx.message.guild.roles, name="[ZEN]")
+		await ctx.message.author.add_roles(role)
+	
+	await ctx.send(f"{member} is being calm. Do not disturb their zen state.")
 
 client.run(TOKEN)
