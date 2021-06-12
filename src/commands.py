@@ -5,9 +5,9 @@
 # COPYRIGHT: Copyright (c) 2021 by Ryan Smith <rysmith2113@gmail.com>
 #
 
-import os
-from typing import NoReturn
-from random import choice
+import os, discord
+from typing import List, NoReturn, Optional
+from random import choice, randrange
 
 from discord import Member
 from discord.ext import commands
@@ -21,14 +21,17 @@ load_dotenv("../.env")
 TOKEN = os.getenv("DISCORD_TOKEN")
 SERVER = os.getenv("DISCORD_SERVER")
 
-client = commands.Bot(command_prefix="/")
+intents = discord.Intents.all()
+intents.members = True
+
+client = commands.Bot(command_prefix="/", intents=intents)
 slash = SlashCommand(client)
 
 @client.command(
 	name="ping", description="Ping the server.",
 	guild_ids=[850104152679252006], options=PING_OPTIONS
 )
-async def ping(ctx: SlashCommand, times=1) -> NoReturn:
+async def ping(ctx: SlashCommand, times: int = 1) -> NoReturn:
 	"""
 		Ping the server.
 		Usage: `/ping <times?>`
@@ -98,4 +101,42 @@ async def eight_ball(ctx: SlashCommand, _: str) -> NoReturn: # The command input
 
 	await ctx.send(f"Magic 8-ball: {choice(RESPONSES)}")
 
+@client.command(
+	name="roll", description="Roll a user-specified amount of dice of a user-specified side count.",
+	guild_ids=[850104152679252006], options=DICEROLL_OPTIONS
+)
+async def diceroll(ctx: SlashCommand, count: int = 1, sides: int = 6) -> NoReturn:
+	"""
+		Roll a die (or dice). The user can specify the amount of dice to roll as well
+		as how many sides each die should have. This command allows the user to roll a
+		die with a side count of 4, 6, 8, 10, 12, or 20.
+		Usage: `/roll <sides?>
+	"""
+
+	def display(_list: List[int]) -> str:
+		""" Customize how a list is displayed. """
+		return ', '.join(list(map(lambda n: str(n), _list)))
+
+	DIE_SIDE_COUNTS = [4, 6, 8, 10, 12, 20]
+
+	# Rolling 0 dice is useless, and rolling negative dice is impossible 
+	if count <= 0:
+		await ctx.send(f"Dice roll: not possible to roll {count} dice")
+		return
+	
+	# Only certain side counts are allowed to be rolled
+	if sides not in DIE_SIDE_COUNTS:
+		await ctx.send(f"Dice roll: rolling a {sides}-sided die is not allowed")
+		return
+	
+	await ctx.send(f"Rolling {count} {sides}-sided {'dice' if count > 1 else 'die'}") # Maintain grammatical correctness :)
+
+	result = list()
+
+	# Calculate the results
+	for _ in range(count):
+		result.append(randrange(1, sides))
+
+	await ctx.send(f"Result: {display(result)}") # Display the answer
+	
 client.run(TOKEN)
