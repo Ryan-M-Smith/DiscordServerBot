@@ -5,18 +5,20 @@
 # COPYRIGHT: Copyright (c) 2021 by Ryan Smith <rysmith2113@gmail.com>
 #
 
-import os, secrets, discord
+import os, secrets, sys
+
 from typing import List, NoReturn, Optional
 from random import choice, randint, randrange
+from datetime import datetime, date
+from params import *
+
+import discord
 
 from discord import Member
 from discord.ext import commands
 from discord.utils import get
 from discord_slash import SlashCommand, SlashContext, SlashCommandOptionType
 from dotenv import load_dotenv
-from datetime import datetime, date
-
-from params import *
 
 load_dotenv("../.env")
 TOKEN = os.getenv("DISCORD_TOKEN")
@@ -176,5 +178,17 @@ async def calm(ctx: SlashCommand) -> NoReturn:
 		await ctx.message.author.add_roles(role)
 	
 	await ctx.send(f"{member} is being calm. Do not disturb their zen state.")
+
+@client.command(
+	name="random", description="Display a random number.",
+	guild_ids=[850104152679252006], options=RANDOM_OPTIONS
+)
+async def random(ctx: SlashCommand, lower: int = -sys.maxsize, upper: int = sys.maxsize):
+	"""
+		Print a random number in the range [lower, upper]
+		Usage: `/random <lower?> <upper?>
+	"""
+
+	await ctx.send(f"Your random number is: {randint(lower, upper)}")
 
 client.run(TOKEN)
