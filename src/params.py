@@ -39,10 +39,26 @@ DICEROLL_OPTIONS = [
 		"required": False,
 		"type": 4
 	},
-	
+
 	{
 		"name": "sides",
 		"description": "The number of sides the die will have",
+		"required": False,
+		"type": 4
+	}
+]
+
+RANDOM_OPTIONS = [
+	{
+		"name": "lower",
+		"description": "The minimum number to show",
+		"required": False,
+		"type": 4
+	},
+
+	{
+		"name": "upper",
+		"description": "The maximum number to show",
 		"required": False,
 		"type": 4
 	}
