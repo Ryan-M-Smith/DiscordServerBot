@@ -33,8 +33,5 @@ async def on_member_join(member: discord.Member) -> NoReturn:
 	await member.create_dm()
 	await channel.send(f"What's poppin\', {member.name}? Welcome to Infinitely Sus!")
 
-#@client.event
-#async def 
-
 if __name__ == "__main__":
 	client.run(TOKEN)
