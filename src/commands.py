@@ -5,9 +5,9 @@
 # COPYRIGHT: Copyright (c) 2021 by Ryan Smith <rysmith2113@gmail.com>
 #
 
-import os, discord
+import os, secrets, discord
 from typing import List, NoReturn, Optional
-from random import choice, randrange
+from random import choice, randint, randrange
 
 from discord import Member
 from discord.ext import commands
@@ -86,16 +86,16 @@ async def eight_ball(ctx: SlashCommand, _: str) -> NoReturn: # The command input
 	#
 	RESPONSES = [
 		# Affirmative
-		"It is Certain.", "It is decidedly so.", "Without a doubt.", "Yes definitely."
-		"You may rely on it.", "As I see it, yes.", "Most likely.", "Outlook good."
-		"Yes.", "Signs point to yes."
+		"It is Certain.", "It is decidedly so.", "Without a doubt.", "Yes definitely.",
+		"You may rely on it.", "As I see it, yes.", "Most likely.", "Outlook good.",
+		"Yes.", "Signs point to yes.",
 
 		# Non-commital
-		"Reply hazy, try again.", "Ask again later.", "Better not tell you now."
-		"Cannot predict now.", "Concentrate and ask again."
+		"Reply hazy, try again.", "Ask again later.", "Better not tell you now.",
+		"Cannot predict now.", "Concentrate and ask again.",
 
 		# Negative
-		"Don't count on it.", "My reply is no.", "My sources say no."
+		"Don't count on it.", "My reply is no.", "My sources say no.",
 		"Outlook not so good.", "Very doubtful."
 	]
 
@@ -138,5 +138,21 @@ async def diceroll(ctx: SlashCommand, count: int = 1, sides: int = 6) -> NoRetur
 		result.append(randrange(1, sides))
 
 	await ctx.send(f"Result: {display(result)}") # Display the answer
-	
+
+@client.command(
+	name="rage", description="Expell rage in the server.",
+	guild_ids=[850104152679252006], options=None,
+	pass_context=True
+)
+async def rage(ctx: SlashCommand) -> NoReturn:
+	"""
+		Rage on the server.
+		Usage: `/rage`
+	"""
+
+	await ctx.send(f"{ctx.message.author} is raging!")
+
+	for _ in range(randint(10, 15)):
+		await ctx.send(secrets.token_hex(nbytes=16)) # Simulate keymashing
+
 client.run(TOKEN)
