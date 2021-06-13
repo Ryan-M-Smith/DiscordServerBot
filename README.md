@@ -41,6 +41,14 @@ where you have member access or higher. There's a tutorial [here](https://discor
 that can help you with all the setup (i.e., getting a bot set up on your server). Technically, this isn't a bot. It's code
 that runs using a bot on your server and allows it to do certain things.
 
+Before you run the project, you need to put your bot's token and the name of your server into the `.env` file
+in the project's root directory. When you do this, your `.env` should look like this:
+
+```sh
+DISCORD_TOKEN=<YOUR_TOKEN> # There shouldn't be quotes around this
+DISCORD_SERVER="My Server's Name" # Quotes are okay here
+```
+
 Once you have everything downloaded and set up, you can choose to run the project by:
 
 1. Building an image of the project's Docker container and running it
