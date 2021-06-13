@@ -72,8 +72,10 @@ Once you have everything downloaded and set up, you can choose to run the projec
 ### Capabilities
 
 The bot can perform actions within your server (like greeting users) as well as custom slash (/)
-commands. To learn more about what the bot can do, see [usage.md].
+commands. To learn more about what the bot can do, see
+[usage.md](https://github.com/Ryan-M-Smith/DiscordServerBot/blob/master/doc/usage.md).
 
 ### More Info
 
-To learn more about the project, see [software-info.md]
+To learn more about the project, see
+[software-info.md](https://github.com/Ryan-M-Smith/DiscordServerBot/blob/master/doc/software-info.md).
