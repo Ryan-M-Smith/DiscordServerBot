@@ -168,16 +168,16 @@ async def rage(ctx: SlashCommand) -> NoReturn:
 )
 async def calm(ctx: SlashCommand) -> NoReturn:
 	"""
-		Be calm on the server
+		Enter a calm (zen) state on the server
 		Usage: `/calm`
 	"""
 
 	member = ctx.message.author # The command sender
 
 	# NOTE: The only works if you have a role with this exact name
-	if get(ctx.guild.roles, name="[ZEN]"):
+	if get(ctx.guild.roles, name="Zen"):
 		# Give that user the zen role
-		role = discord.utils.get(ctx.message.guild.roles, name="[ZEN]")
+		role = discord.utils.get(ctx.message.guild.roles, name="Zen")
 		await ctx.message.author.add_roles(role)
 	
 	await ctx.send(f"{member} is being calm. Do not disturb their zen state.")
