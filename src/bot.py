@@ -11,7 +11,7 @@ from typing import NoReturn
 from dotenv import load_dotenv
 
 # Load the tokens from the environment
-load_dotenv("../.env")
+load_dotenv(".env")
 TOKEN = os.getenv("DISCORD_TOKEN")
 SERVER = os.getenv("DISCORD_SERVER")
 
@@ -34,4 +34,5 @@ async def on_member_join(member: discord.Member) -> NoReturn:
 	await channel.send(f"What's poppin\', {member.name}? Welcome to Infinitely Sus!")
 
 if __name__ == "__main__":
+	import commands # This makes the commands accessible by running bot.py
 	client.run(TOKEN)
