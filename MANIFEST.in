@@ -1,0 +1,14 @@
+# FILENAME: MANIFEST.in
+# Add and remove files and directories from the packaged software's source directory
+
+include LICENSE.txt
+include version.txt
+include CHANGELOG.md
+include requirements.txt
+include Dockerfile
+include *.yaml
+
+include .editorconfig
+include .gitignore
+include .dockerignore
+include .env
