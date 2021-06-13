@@ -12,7 +12,7 @@ from random import choice, randint, randrange
 from datetime import datetime, date
 from pathlib import Path
 
-from params import *
+from .params import *
 
 import discord
 

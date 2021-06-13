@@ -5,7 +5,7 @@
 # COPYRIGHT: Copyright (c) 2021 by Ryan Smith <rysmith2113@gmail.com>
 #
 
-import os
+import os, sys
 from pathlib import Path
 from typing import NoReturn
 
@@ -35,6 +35,9 @@ async def on_member_join(member: discord.Member) -> NoReturn:
 	await member.create_dm()
 	await channel.send(f"What's poppin\', {member.name}? Welcome to Infinitely Sus!")
 
-if __name__ == "__main__":
-	import commands # This makes the commands accessible by running bot.py
+def main() -> NoReturn:
+	from . import commands # This makes the commands accessible by running bot.py
 	client.run(TOKEN)
+
+if __name__ == "__main__":
+	sys.exit(main())
