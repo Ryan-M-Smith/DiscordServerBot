@@ -5,6 +5,7 @@
 # COPYRIGHT: Copyright (c) 2021 by Ryan Smith <rysmith2113@gmail.com>
 #
 
+from multiprocessing import Event
 import os, secrets, sys
 
 from typing import List, NoReturn, Optional
@@ -193,4 +194,9 @@ async def random(ctx: SlashCommand, lower: int = -sys.maxsize, upper: int = sys.
 
 	await ctx.send(f"Your random number is: {randint(lower, upper)}")
 
-client.run(TOKEN)
+def main(event: Event) -> NoReturn:
+	""" Run the slash commands. """
+
+	event.wait()
+	print("Slash commands loaded.")
+	client.run(TOKEN)

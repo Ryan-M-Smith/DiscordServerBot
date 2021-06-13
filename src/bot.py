@@ -8,9 +8,12 @@
 import os, sys
 from pathlib import Path
 from typing import NoReturn
+from multiprocessing import Process, Event
 
 import discord
 from dotenv import load_dotenv
+
+from . import commands
 
 # Load the tokens from the environment
 load_dotenv(Path(".env"))
@@ -24,7 +27,7 @@ client = discord.Client(intents=intents)
 @client.event
 async def on_ready() -> NoReturn:
 	""" A "ready" message. """
-	print(f"{client.user} hopped online")
+	print(f"{client.user} is online")
 	channel = client.get_channel(850104153278644305)
 	await channel.send(f"{client.user} hopped online")
 
@@ -35,9 +38,33 @@ async def on_member_join(member: discord.Member) -> NoReturn:
 	await member.create_dm()
 	await channel.send(f"What's poppin\', {member.name}? Welcome to Infinitely Sus!")
 
-def main() -> NoReturn:
-	from . import commands # This makes the commands accessible by running bot.py
+def main(event: Event) -> NoReturn:
+	""" Run the server events. """
+
+	event.wait()
+	print("Server events active.")
 	client.run(TOKEN)
 
+def run() -> NoReturn:
+	""" Simultaneously run the server events and the slash commands. """
+
+	py_version = sys.version_info
+
+	# Print some info to the terminal 
+	print("DiscordServerBot - Copyright (c) 2021 by Ryan Smith")
+	print(f"Running with Python {py_version.major}.{py_version.minor}.{py_version.micro}")
+	print("-" * 51) # A divider (creates 51 dashes)
+
+	event = Event()
+
+	# Get both file's main functions
+	bot, slash_commands = Process(target=main, args=tuple([event])), Process(target=commands.main, args=tuple([event]))
+
+	# Start the processes
+	bot.start()
+	slash_commands.start()
+
+	event.set() # Start the event
+
 if __name__ == "__main__":
-	sys.exit(main())
+	sys.exit(run())
