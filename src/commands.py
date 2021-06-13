@@ -69,7 +69,7 @@ async def info(ctx: SlashCommand) -> NoReturn:
 async def greet(ctx: SlashCommand, member: Member) -> NoReturn:
 	"""
 		Greet a user.
-		Usage: `/greet @<member>`
+		Usage: `/greet @<member: 9>`
 	"""
 	await ctx.send(f"Greetings, {member.name}! How's life?")
 
@@ -80,7 +80,7 @@ async def greet(ctx: SlashCommand, member: Member) -> NoReturn:
 async def eight_ball(ctx: SlashCommand, _: str) -> NoReturn: # The command input (question) is just for looks, and is ignored here
 	"""
 		Simulate a magic 8-ball
-		Usage: `/8ball <question>`
+		Usage: `/8ball <question: 3>`
 	"""
 
 	#
@@ -116,7 +116,7 @@ async def diceroll(ctx: SlashCommand, count: int = 1, sides: int = 6) -> NoRetur
 		Roll a die (or dice). The user can specify the amount of dice to roll as well
 		as how many sides each die should have. This command allows the user to roll a
 		die with a side count of 4, 6, 8, 10, 12, or 20.
-		Usage: `/roll <sides?>
+		Usage: `/roll <count?: 4 = 1> <sides?: 4 = 6>
 	"""
 
 	def display(_list: List[int]) -> str:
@@ -174,11 +174,13 @@ async def calm(ctx: SlashCommand) -> NoReturn:
 
 	member = ctx.message.author # The command sender
 
-	# NOTE: The only works if you have a role with this exact name
-	if get(ctx.guild.roles, name="Zen"):
-		# Give that user the zen role
-		role = discord.utils.get(ctx.message.guild.roles, name="Zen")
-		await ctx.message.author.add_roles(role)
+	# Add a zen role if one doesn't already exist
+	if not get(ctx.guild.roles, name="Zen"):
+		await ctx.guild.create_role(name="Zen")
+
+	# Give that user the zen role
+	role = discord.utils.get(ctx.message.guild.roles, name="Zen")
+	await ctx.message.author.add_roles(role)
 	
 	await ctx.send(f"{member} is being calm. Do not disturb their zen state.")
 
@@ -189,7 +191,7 @@ async def calm(ctx: SlashCommand) -> NoReturn:
 async def random(ctx: SlashCommand, lower: int = -sys.maxsize, upper: int = sys.maxsize):
 	"""
 		Print a random number in the range [lower, upper]
-		Usage: `/random <lower?> <upper?>
+		Usage: `/random <lower?: 4 = -sys.maxsize> <upper?: 4 = sys.maxsize>
 	"""
 
 	await ctx.send(f"Your random number is: {randint(lower, upper)}")
