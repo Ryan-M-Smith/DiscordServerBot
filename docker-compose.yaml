@@ -1,0 +1,11 @@
+version: '3.6'
+
+services:
+  serverbot:
+    environment:
+      DISCORD_TOKEN: ${DISCORD_TOKEN}
+      DISCORD_SERVER: ${DISCORD_SERVER}
+    image: serverbot
+    build:
+      context: .
+      dockerfile: ./Dockerfile

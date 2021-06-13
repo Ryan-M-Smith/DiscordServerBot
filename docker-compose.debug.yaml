@@ -1,0 +1,11 @@
+version: '3.6'
+
+services:
+  serverbot:
+    image: serverbot
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    command: ["sh", "-c", "pip install debugpy -t /tmp && python /tmp/debugpy --wait-for-client --listen 0.0.0.0:5678 src/bot.py "]
+    ports:
+      - 5678:5678
