@@ -1,3 +1,12 @@
-build/
 __pycache__
 .vscode
+
+# Stuff that shouldn't be in version control
+my_stuff/
+releases/
+
+# Stuff related to builds
+build/
+*.egg-info
+dist
+build.sh
