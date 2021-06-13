@@ -5,13 +5,15 @@
 # COPYRIGHT: Copyright (c) 2021 by Ryan Smith <rysmith2113@gmail.com>
 #
 
-import os, discord
-
+import os
+from pathlib import Path
 from typing import NoReturn
+
+import discord
 from dotenv import load_dotenv
 
 # Load the tokens from the environment
-load_dotenv(".env")
+load_dotenv(Path(".env"))
 TOKEN = os.getenv("DISCORD_TOKEN")
 SERVER = os.getenv("DISCORD_SERVER")
 

@@ -10,6 +10,8 @@ import os, secrets, sys
 from typing import List, NoReturn, Optional
 from random import choice, randint, randrange
 from datetime import datetime, date
+from pathlib import Path
+
 from params import *
 
 import discord
@@ -20,7 +22,7 @@ from discord.utils import get
 from discord_slash import SlashCommand, SlashContext, SlashCommandOptionType
 from dotenv import load_dotenv
 
-load_dotenv("../.env")
+load_dotenv(Path(".env"))
 TOKEN = os.getenv("DISCORD_TOKEN")
 SERVER = os.getenv("DISCORD_SERVER")
 
