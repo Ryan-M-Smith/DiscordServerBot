@@ -49,6 +49,9 @@ DISCORD_TOKEN=<YOUR_TOKEN> # There shouldn't be quotes around this
 DISCORD_SERVER="My Server's Name" # Quotes are okay here
 ```
 
+If you're using the Docker image, just reproduce the `.env` file above in your home directory, or wherever is most
+convenient for you.
+
 Once you have everything downloaded and set up, you can choose to run the project by:
 
 1. Building an image of the project's Docker container and running it
