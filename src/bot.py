@@ -13,6 +13,7 @@ from multiprocessing import Process, Event
 import discord
 from dotenv import load_dotenv
 
+# NOTE: Import differently for Docker builds
 from . import commands
 
 # Load the tokens from the environment
