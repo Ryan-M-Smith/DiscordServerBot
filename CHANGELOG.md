@@ -2,7 +2,7 @@
 
 This changelog follows the basic format outlined on [keepachangelog.com](https://keepachangelog.com/en/1.0.0).
 
-## Unreleased - (Expected v0.1.1)
+## v0.1.1 - Released 2021-06-16
 
 * **Added**
   * There are now import statements for `setup.py` and Docker
