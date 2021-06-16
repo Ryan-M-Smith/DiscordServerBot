@@ -14,6 +14,7 @@ import discord
 from dotenv import load_dotenv
 
 # NOTE: Import differently for Docker builds
+#import commands
 from . import commands
 
 # Load the tokens from the environment
