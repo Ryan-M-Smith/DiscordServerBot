@@ -1,6 +1,7 @@
 **/__pycache__
 **/.classpath
 **/.dockerignore
+**/docker-compose.yaml
 **/.git
 **/.gitignore
 **/.project
@@ -19,7 +20,8 @@
 **/obj
 **/secrets.dev.yaml
 **/values.dev.yaml
-README.md
+**/README.md
+**/Dockerfile
 **/my_stuff
 **/releases
 **/doc
