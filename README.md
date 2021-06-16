@@ -52,20 +52,32 @@ DISCORD_SERVER="My Server's Name" # Quotes are okay here
 If you're using the Docker image, just reproduce the `.env` file above in your home directory, or wherever is most
 convenient for you.
 
+If you plan to use any method involving Docker, consider these things:
+
+* Make sure `docker` and `docker-compose` are installed on your system
+* Enable the `docker` service with `sudo systemctl enable --now docker`
+* If you want to be able to run Docker without sudo, run `sudo groupadd docker` then
+  `sudo usermod -aG docker $USER`
+
 Once you have everything downloaded and set up, you can choose to run the project by:
 
-1. Building an image of the project's Docker container and running it
+1. Pull and run an image of the Docker container from Docker Hub
+    * Run `docker run -p 80:80 ryanmsmith144/discordserverbot:<TAGNAME> --env-file /path/to/env/file`
+      * You can use whatever port and tag you choose
+      * You can make a `.env` file on your system and put the necessary information in there,
+        or you can use `--env` and pass in everything in the command itself. If you plan to
+        make your own `.env` file, see the one in the root directory of this project for a
+        template.
 
-    * Make sure `docker` and `docker-compose` are installed on your system
-    * Enable the `docker` service with `sudo systemctl enable --now docker`
-    * If you want to be able to run Docker without sudo, run `sudo groupadd docker` then
-      `sudo usermod -aG docker $USER`
+2. Building an image of the project's Docker container and running it
+
+    * Clone the repo and `cd` into the directory
     * Run `docker-compose up` to build and run the project
       * The code runs forever, so use `ctrl+c` to exit
       * Once you close the container, use `docker run --env-file .env serverbot` to run
       * Should you ever need to rebuild, run `docker-compose up --build`
 
-2. Using `setup.py install` and running a Python application
+3. Using `setup.py install` and running a Python application
 
     * Run `python3 setup.py install`
       * Run this as root (`sudo`) to install the program in the `/usr/local/lib/.../site-packages`
