@@ -14,8 +14,8 @@ import discord
 from dotenv import load_dotenv
 
 # NOTE: Import differently for Docker builds
-#import commands
-from . import commands
+import commands
+#from . import commands
 
 # Load the tokens from the environment
 load_dotenv(Path(".env"))
@@ -32,6 +32,12 @@ async def on_ready() -> NoReturn:
 	print(f"{client.user} is online")
 	channel = client.get_channel(850104153278644305)
 	await channel.send(f"{client.user} hopped online")
+
+	# Show that the bot is ready
+	await client.change_presence(
+		status=discord.Status.idle,
+		activity=discord.Game(name='Use /help for help')
+	)
 
 @client.event
 async def on_member_join(member: discord.Member) -> NoReturn:
