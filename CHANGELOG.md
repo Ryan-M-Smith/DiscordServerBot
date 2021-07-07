@@ -11,7 +11,6 @@ This changelog follows the basic format outlined on [keepachangelog.com](https:/
 
 * **Changed**
   * The roles now have colors
-  * The bot has a status now
   * Updated some documentation
 
 ## v0.1.1 - Released 2021-06-16
