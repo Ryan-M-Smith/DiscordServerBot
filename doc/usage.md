@@ -48,6 +48,8 @@ sign after the parameter type.
 * `4`: parameter type
 * `10`: parameter default value
 
+**Note that you can use** `/help <command>` **to get info about anything here**
+
 | Command    | Parameters        | Description |
 | ---------- | ----------------- | ----------- |
 | `/8ball`   | `<question: 3>`   | Simulate a magic 8-ball. The question parameter is required, but is only for show and isn't used for  anything |

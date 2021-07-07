@@ -2,6 +2,18 @@
 
 This changelog follows the basic format outlined on [keepachangelog.com](https://keepachangelog.com/en/1.0.0).
 
+## v0.2.0 - Released 2021-07-07
+
+* **Added**
+  * Added a Rage role in addition to the Zen role
+  * The bot has a status now
+  * Added integration with GitHub packages
+
+* **Changed**
+  * The roles now have colors
+  * The bot has a status now
+  * Updated some documentation
+
 ## v0.1.1 - Released 2021-06-16
 
 * **Added**

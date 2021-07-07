@@ -158,7 +158,23 @@ async def rage(ctx: SlashCommand) -> NoReturn:
 		Usage: `/rage`
 	"""
 
-	await ctx.send(f"{ctx.message.author} is raging!")
+	member = ctx.message.author # The command sender
+	role_rage = discord.utils.get(ctx.message.guild.roles, name="Rage")
+	role_zen = discord.utils.get(ctx.message.guild.roles, name="Zen")
+
+	# Remove the Zen role from the user, if it exists and the user has it
+	if get(ctx.guild.roles, name="Zen") and (role_zen in member.roles):
+		await member.remove_roles(role_zen)
+	
+	# Create the Rage role if one doesn't already exist
+	if not get(ctx.guild.roles, name="Rage"):
+		await ctx.guild.create_role(name="Rage")
+		role_rage = discord.utils.get(ctx.message.guild.roles, name="Rage") # Get the role if it didn't exist before
+	
+	await role_rage.edit(name="Rage", color=discord.Color(int(0xff2a00))) # Change the role color
+	await ctx.message.author.add_roles(role_rage) # Give the user the Rage role
+
+	await ctx.send(f"{member} is raging!")
 
 	for _ in range(randint(10, 15)):
 		await ctx.send(secrets.token_hex(nbytes=16)) # Simulate keymashing
@@ -175,14 +191,20 @@ async def calm(ctx: SlashCommand) -> NoReturn:
 	"""
 
 	member = ctx.message.author # The command sender
+	role_rage = discord.utils.get(ctx.message.guild.roles, name="Rage")
+	role_zen = discord.utils.get(ctx.message.guild.roles, name="Zen")
 
-	# Add a zen role if one doesn't already exist
+	# Remove the Rage role from the user, if it exists and the user has it
+	if get(ctx.guild.roles, name="Rage") and (role_rage in member.roles):
+		await member.remove_roles(role_rage)
+
+	# Create the Zen role if one doesn't already exist
 	if not get(ctx.guild.roles, name="Zen"):
 		await ctx.guild.create_role(name="Zen")
-
-	# Give that user the zen role
-	role = discord.utils.get(ctx.message.guild.roles, name="Zen")
-	await ctx.message.author.add_roles(role)
+		role_zen = discord.utils.get(ctx.message.guild.roles, name="Zen") # Get the role if it didn't exist before
+	
+	await role_zen.edit(name="Zen", color=discord.Color(int(0x009282))) # Change the role color
+	await member.add_roles(role_zen) # Give that user the Zen role
 	
 	await ctx.send(f"{member} is being calm. Do not disturb their zen state.")
 
