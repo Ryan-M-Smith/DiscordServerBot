@@ -14,8 +14,8 @@ from datetime import datetime, date
 from pathlib import Path
 
 # NOTE: Import differently for Docker builds
-#from params import * 
-from .params import *
+from params import * 
+#from .params import *
 
 import discord
 
@@ -158,7 +158,24 @@ async def rage(ctx: SlashCommand) -> NoReturn:
 		Usage: `/rage`
 	"""
 
-	await ctx.send(f"{ctx.message.author} is raging!")
+	member = ctx.message.author # The command sender
+
+	# Remove the Zen role from the user, if it exists and the user has it
+	if get(ctx.guild.roles, name="Zen"):
+		role = discord.utils.get(ctx.message.guild.roles, name="Zen")
+
+		if role in member.roles:
+			await member.remove_roles(role)
+	
+	# Create a Rage role if one doesn't already exist
+	if not get(ctx.guild.roles, name="Rage"):
+		await ctx.guild.create_role(name="Rage")
+
+	# Give the user the Rage role
+	role = discord.utils.get(ctx.message.guild.roles, name="Rage")
+	await ctx.message.author.add_roles(role)
+
+	await ctx.send(f"{member} is raging!")
 
 	for _ in range(randint(10, 15)):
 		await ctx.send(secrets.token_hex(nbytes=16)) # Simulate keymashing
@@ -176,13 +193,20 @@ async def calm(ctx: SlashCommand) -> NoReturn:
 
 	member = ctx.message.author # The command sender
 
-	# Add a zen role if one doesn't already exist
+	# Remove the Rage role from the user, if it exists and the user has it
+	if get(ctx.guild.roles, name="Rage"):
+		role = discord.utils.get(ctx.message.guild.roles, name="Rage")
+
+		if role in member.roles:
+			await member.remove_roles(role)
+
+	# Create a Zen role if one doesn't already exist
 	if not get(ctx.guild.roles, name="Zen"):
 		await ctx.guild.create_role(name="Zen")
 
-	# Give that user the zen role
+	# Give that user the Zen role
 	role = discord.utils.get(ctx.message.guild.roles, name="Zen")
-	await ctx.message.author.add_roles(role)
+	await member.add_roles(role)
 	
 	await ctx.send(f"{member} is being calm. Do not disturb their zen state.")
 
