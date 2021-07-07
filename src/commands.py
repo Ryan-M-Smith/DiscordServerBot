@@ -159,21 +159,20 @@ async def rage(ctx: SlashCommand) -> NoReturn:
 	"""
 
 	member = ctx.message.author # The command sender
+	role_rage = discord.utils.get(ctx.message.guild.roles, name="Rage")
+	role_zen = discord.utils.get(ctx.message.guild.roles, name="Zen")
 
 	# Remove the Zen role from the user, if it exists and the user has it
-	if get(ctx.guild.roles, name="Zen"):
-		role = discord.utils.get(ctx.message.guild.roles, name="Zen")
-
-		if role in member.roles:
-			await member.remove_roles(role)
+	if get(ctx.guild.roles, name="Zen") and (role_zen in member.roles):
+		await member.remove_roles(role_zen)
 	
-	# Create a Rage role if one doesn't already exist
+	# Create the Rage role if one doesn't already exist
 	if not get(ctx.guild.roles, name="Rage"):
 		await ctx.guild.create_role(name="Rage")
-
-	# Give the user the Rage role
-	role = discord.utils.get(ctx.message.guild.roles, name="Rage")
-	await ctx.message.author.add_roles(role)
+		role_rage = discord.utils.get(ctx.message.guild.roles, name="Rage") # Get the role if it didn't exist before
+	
+	await role_rage.edit(name="Rage", color=discord.Color(int(0xff2a00))) # Change the role color
+	await ctx.message.author.add_roles(role_rage) # Give the user the Rage role
 
 	await ctx.send(f"{member} is raging!")
 
@@ -192,21 +191,20 @@ async def calm(ctx: SlashCommand) -> NoReturn:
 	"""
 
 	member = ctx.message.author # The command sender
+	role_rage = discord.utils.get(ctx.message.guild.roles, name="Rage")
+	role_zen = discord.utils.get(ctx.message.guild.roles, name="Zen")
 
 	# Remove the Rage role from the user, if it exists and the user has it
-	if get(ctx.guild.roles, name="Rage"):
-		role = discord.utils.get(ctx.message.guild.roles, name="Rage")
+	if get(ctx.guild.roles, name="Rage") and (role_rage in member.roles):
+		await member.remove_roles(role_rage)
 
-		if role in member.roles:
-			await member.remove_roles(role)
-
-	# Create a Zen role if one doesn't already exist
+	# Create the Zen role if one doesn't already exist
 	if not get(ctx.guild.roles, name="Zen"):
 		await ctx.guild.create_role(name="Zen")
-
-	# Give that user the Zen role
-	role = discord.utils.get(ctx.message.guild.roles, name="Zen")
-	await member.add_roles(role)
+		role_zen = discord.utils.get(ctx.message.guild.roles, name="Zen") # Get the role if it didn't exist before
+	
+	await role_zen.edit(name="Zen", color=discord.Color(int(0x009282))) # Change the role color
+	await member.add_roles(role_zen) # Give that user the Zen role
 	
 	await ctx.send(f"{member} is being calm. Do not disturb their zen state.")
 
