@@ -4,9 +4,10 @@
 
 ### Downloading
 
-You can download the project in one of two ways: by cloning the project from
-[GitHub](https://github.com/Ryan-M-Smith/DiscordServerBot) or by pulling the latest Docker image from my
-[Docker Hub](https://hub.docker.com/r/ryanmsmith144/discordserverbot).
+You can download the project in one of three ways: by cloning the project from
+[GitHub](https://github.com/Ryan-M-Smith/DiscordServerBot), by pulling the latest Docker image from my
+[Docker Hub](https://hub.docker.com/r/ryanmsmith144/discordserverbot), or by pulling an image from [GitHub
+Packages](https://github.com/Ryan-M-Smith?tab=packages&repo_name=DiscordServerBot).
 
 ```sh
 # Clone from GitHub
@@ -15,8 +16,11 @@ git clone https://github.com/Ryan-M-Smith/DiscordServerBot.git
 # Pull from Docker Hub (pulls tag latest by default)
 docker pull ryansmith144/discordserverbot
 
-# To pull a specific tag:
+# To pull a specific tag (I don't suggest using latest):
 docker pull ryanmsmith144/discordserverbot:<tagname>
+
+# To pull from GitHub packages.
+docker pull ghcr.io/ryan-m-smith/discordserverbot:<tagname>
 ```
 
 ### Prerequisites
