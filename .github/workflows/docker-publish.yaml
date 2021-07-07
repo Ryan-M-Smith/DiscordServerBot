@@ -33,6 +33,16 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+        
+      - name: Dotenv Action
+        # You may pin to the exact commit or the version.
+        # uses: falti/dotenv-action@cb77e3cb51b636f6833ceeb6928bf06ff66e82fa
+        uses: falti/dotenv-action@v0.2.5
+        with:
+          # the path to the .env file (including file name)
+          path: .github/ # default is .env
+          # whether to log the variables to output or not
+          log-variables: false # optional, default is false
 
       # Login against a Docker registry except on PR
       # https://github.com/docker/login-action
