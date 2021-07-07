@@ -2,7 +2,7 @@
 
 This changelog follows the basic format outlined on [keepachangelog.com](https://keepachangelog.com/en/1.0.0).
 
-## Unreleased - (Expected: v0.2.0)
+## v0.2.0 - Released 2021-07-07
 
 * **Added**
   * Added a Rage role in addition to the Zen role
