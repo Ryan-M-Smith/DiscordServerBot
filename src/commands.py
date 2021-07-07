@@ -14,8 +14,8 @@ from datetime import datetime, date
 from pathlib import Path
 
 # NOTE: Import differently for Docker builds
-from params import * 
-#from .params import *
+#from params import * 
+from .params import *
 
 import discord
 
